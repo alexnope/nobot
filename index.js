@@ -16,7 +16,7 @@ function rng(num){
 var servers = {};
 var fortunes = ["yes", "no", "maybe", "probably not", " not sure man", "ask again" ];
 var coinside = ["Heads", "Tails"]
-var normalcommands = ["help", "me", "ping", "info", "coinflip"]       //add command here to add the help function
+var normalcommands = ["help", "me", "ping", "info", "coinflip" , "no (#)"]       //add command here to add the help function
 var musiccommands = [];     //for future music client
 
 
