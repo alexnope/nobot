@@ -9,7 +9,7 @@ client.on("message", function(message) {
 
     if(!message.content.startsWith(PREFIX)) return;
 
-function rng(num){
+function rng(num){      // number function
     return (Math.floor(Math.random()* Math.floor(num)));
 }
 
@@ -29,7 +29,6 @@ switch(args[0].toLowerCase()) {
                 .setAuthor("NoBot", client.user.displayAvatarURL)
                 .setDescription("Bot Alex No created to play around with node js")
                 .addField("Command list",normalcommands)
-                .addField("The Prefix is -")
                 .setColor(0xF4F766)
             message.channel.send(embed);
             break;
@@ -64,15 +63,24 @@ switch(args[0].toLowerCase()) {
             let nomessage = "no ";
             let counter = message.content.substring(3);
             if(counter > 0 && counter < 601){
-                for(let i=0;i<counter-1;i++){
-                    nomessage = nomessage+ "no "
-                }
+                nomessage.repeat(counter-1);
             }
             else{
                 message.channel.send("Invalid parameters sent in, only 1-600, ex: -no 5")
                 break;
             }
             message.channel.send(nomessage);
+            break;
+
+        case "spam":
+            let parameter = message.content.substring(PREFIX.length+4); //takes the command and removes the -spam
+            parameter = parameter.split(" ");                           //splits up the parameters into parameter[0], parameter[1]
+                                                                        //parameter0 is the word wanted to spam and parameter[1] is the amount of times up to 600
+            let spammessage = parameter[1];                             //add some protection
+            for(let i=0;i<(parameter[2]-1);i++){
+                spammessage = spammessage + " " + parameter[1];
+            }
+            message.channel.send(spammessage);
             break;
         default:
             message.channel.send("Not a valid command");
