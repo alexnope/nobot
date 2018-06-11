@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const YTDL = require("ytdl-core");
 const CONFIG = require("./config.json");
 const PREFIX = "-";
 const client = new Discord.Client();
@@ -9,12 +8,12 @@ client.on("message", function(message) {
 
     if(!message.content.startsWith(PREFIX)) return;
 
-function rng(num){      // number function
+function rng(num){      // random number generator function, 0,input
     return (Math.floor(Math.random()* Math.floor(num)));
 }
 
 var servers = {};
-var fortunes = ["yes", "no", "maybe", "probably not", " not sure man", "ask again" ];
+var fortunes = ["yes", "no", "maybe", "probably not", " not sure man", "ask again" ];   //list of fortunes
 var coinside = ["Heads", "Tails"]
 var normalcommands = ["help", "me", "ping", "info", "coinflip" , "no (#)"]       //add command here to add the help function
 var musiccommands = [];     //for future music client
