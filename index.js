@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const YTDL = require("ytdl-core");
 const CONFIG = require("./config.json");
 const PREFIX = "-";
 const client = new Discord.Client();
@@ -8,12 +9,17 @@ client.on("message", function(message) {
 
     if(!message.content.startsWith(PREFIX)) return;
 
-function rng(num){      // random number generator function, 0,input
+function rng(num){      // number function      
     return (Math.floor(Math.random()* Math.floor(num)));
 }
 
+function pickrandom(listofpeople){
+    listofpeople = listofpeople.split(" ");     //make a way to do this with tags instead of just names
+    return listofpeople[rng(listofpeople.length)];
+}
+
 var servers = {};
-var fortunes = ["yes", "no", "maybe", "probably not", " not sure man", "ask again" ];   //list of fortunes
+var fortunes = ["yes", "no", "maybe", "probably not", " not sure man", "ask again" ];
 var coinside = ["Heads", "Tails"]
 var normalcommands = ["help", "me", "ping", "info", "coinflip" , "no (#)"]       //add command here to add the help function
 var musiccommands = [];     //for future music client
@@ -44,7 +50,7 @@ switch(args[0].toLowerCase()) {
             break;
             
         case "info":
-            message.channel.send("test bot-soon to be music bot");
+            message.channel.send("test bot-adding features as I go");
             break;
 
         case "8ball":
@@ -72,14 +78,23 @@ switch(args[0].toLowerCase()) {
             break;
 
         case "spam":
-            let parameter = message.content.substring(PREFIX.length+4); //takes the command and removes the -spam
+            let parameter = message.content.substring(PREFIX.length+5); //takes the command and removes the -spam
             parameter = parameter.split(" ");                           //splits up the parameters into parameter[0], parameter[1]
                                                                         //parameter0 is the word wanted to spam and parameter[1] is the amount of times up to 600
-            let spammessage = parameter[1];                             //add some protection
-            for(let i=0;i<(parameter[2]-1);i++){
-                spammessage = spammessage + " " + parameter[1];
+            let spammessage = parameter[0];                             //add some protection
+            if((spammessage.length+1) * parameter[1] < 1999 ){
+                for(let i=0;i<(parameter[1]-1);i++){
+                    spammessage = spammessage + " " + parameter[0];
+                }
+                message.channel.send(spammessage);
             }
-            message.channel.send(spammessage);
+            else   
+                message.channel.send("Spam is too long!")
+            break;
+
+        case "lottery":
+            let listofpeople = message.content.substring(PREFIX.length+8);
+            message.channel.send(pickrandom(listofpeople));
             break;
         default:
             message.channel.send("Not a valid command");
