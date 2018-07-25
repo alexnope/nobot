@@ -1,2 +1,2 @@
-# nobot
-Just a discord bot I am messing around with for fun
+# RNG Bot
+Now creating a bot specifically for randomness
