@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+cconst Discord = require("discord.js");
 const CONFIG = require("./config.json");
 const PREFIX = "-";
 const client = new Discord.Client();
@@ -16,6 +16,13 @@ function rng(num){      // number function
 function pickrandom(listofpeople){      
     listofpeople = listofpeople.split(" ");     //make a way to do this with tags instead of just names
     return listofpeople[rng(listofpeople.length)];
+}
+function myrng(){   //creating own random number generator
+    const TIME = process.hrtime();  //grab cpu time
+    
+    var randomseed = TIME[1]*TIME[0];   //take the nano sec * the normal sec
+    message.channel.send(randomseed);    //test print
+    
 }
 
 var servers = {};
@@ -56,6 +63,9 @@ switch(args[0].toLowerCase()) {
         case "lottery":
             let listofpeople = message.content.substring(PREFIX.length+8);
             message.channel.send(pickrandom(listofpeople));
+            break;
+        case "rngtest":
+            myrng();
             break;
         default:
             message.channel.send("Not a valid command");
