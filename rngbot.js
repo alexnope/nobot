@@ -22,15 +22,14 @@ function myrng(range1,range2){   //creating own random number generator
     let number;
     let randomseed;
     if(rngbool == true){
-        randomseed = (TIME[1]*TIME[0]);   //take the nano sec * the normal sec
-        number = (randomseed % range2) + range1;
+        randomseed = (TIME[1]*TIME[0])+TIME[1];   //take the nano sec * the normal sec
         rngbool = !rngbool;
     }
     else{
         randomseed = (TIME[1] * TIME[1]);
-        number = (randomseed % range2) + range1;
         rngbool = !rngbool;
     }
+    number = (randomseed % range2) + range1;
     return number;   //test print
     
 }
@@ -76,6 +75,9 @@ switch(args[0].toLowerCase()) {
         case "lottery":
             let listofpeople = message.content.substring(PREFIX.length+8);
             message.channel.send(pickrandom(listofpeople));
+            break;
+        case "dice":
+            message.channel.send(myrng(1,6))
             break;
         default:
             message.channel.send("Not a valid command");
