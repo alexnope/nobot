@@ -1,0 +1,17 @@
+{
+  "name": "rngbot",
+  "version": "1.0.0",
+  "description": "random random random",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bufferutil": "^3.0.3",
+    "discord.js": "^11.4.2",
+    "mysql": "^2.16.0",
+    "opusscript": "0.0.6"
+  }
+}
