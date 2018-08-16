@@ -10,7 +10,7 @@ var con = mysql.createConnection({
     user: "root",
     port: "3306",
     password: "",
-    database: "rngdb",
+    database: "rngdb"
 });
 con.connect(err => {
     if(err) throw err;
@@ -44,6 +44,11 @@ function myrng(range1,range2){
     seed = (seed%range2) + range1;
     return seed;
 }
+
+function daily(){ //for daily command
+  return Number(myrng(25,60));
+}
+
 
 //variables used throughout
 var servers = {};
@@ -92,6 +97,21 @@ switch(args[0].toLowerCase()) {
 
         case "rolldice":
             message.channel.send(dice[myrng(0,5)]);
+            break;
+
+        case "daily":
+            con.query(`SELECT * FROM currency WHERE id ='${message.author.id}'`,(err,rows)=>{
+              if(err) throw err;
+              let sql;
+              if(rows.length < 1){
+                sql = `INSERT INTO currency (id,amount) VALUES ('${message.author.id}', ${daily()})`
+              }
+              else{
+                let amt = rows[0].amount + daily(); //rows.amount is previous amount + daily
+                sql = `UPDATE currency SET amount=${amt} WHERE id='${message.author.id}'`;
+              }
+              con.query(sql,console.log);
+            });
             break;
 
         default:
